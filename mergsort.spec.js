@@ -16,7 +16,15 @@ describe('Split Array function', function() {
 
 describe('Merge Sort', function(){
   it('make sure split() is called', function(){
-    expect(split).toHaveBeenCalled();
+    // monkey patching
+    var oldSplit = split;
+    var splitCalled = false;
+    split = function() {
+      splitCalled = true;
+      return oldSplit(this.Array.from(arguments));
+    }
+    mergeSort([1, 2, 3, 4, 5]);
+    expect(splitCalled).toBeTruthy();
   });
 
   it('is able to merge two sorted arrays into one sorted array', function() {
