@@ -1,16 +1,9 @@
 function split(array) {
-  var middle;
-  // var left;
-  // var right;
   if (array.length < 2) {
     return array;
   } else {
-
-    middle = Math.floor(array.length/2);
-    // left = array.slice(0,middle);
-    // right = array.slice(middle);
-
-    return [array.slice(0, middle),array.slice(middle)];
+    var middle = Math.floor(array.length/2);
+    return [array.slice(0, middle), array.slice(middle)];
   }
 
 }
@@ -39,7 +32,7 @@ function merge(left, right, comp = lessThan) {
 
 function mergeSort(array, comp = lessThan) {
   // base case
-  if(array.length <= 1) {
+  if(array.length < 2) {
     return array;
   }
   // recursive steps
