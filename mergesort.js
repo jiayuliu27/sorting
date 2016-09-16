@@ -30,6 +30,10 @@ function merge(left, right, comp = lessThan) {
   return left;
 }
 
+/*
+  Required: comp returns only true or false, if equal, then comp should return false
+*/
+
 function mergeSort(array, comp = lessThan) {
   // base case
   if(array.length < 2) {
