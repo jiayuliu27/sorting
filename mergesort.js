@@ -1,40 +1,53 @@
 function split(array) {
   var middle;
-  var left;
-  var right;
+  // var left;
+  // var right;
   if (array.length < 2) {
     return array;
   } else {
 
     middle = Math.floor(array.length/2);
-    left = array.slice(0,middle);
-    right = array.slice(middle);
+    // left = array.slice(0,middle);
+    // right = array.slice(middle);
 
-    return [left,right];
+    return [array.slice(0, middle),array.slice(middle)];
   }
 
 }
-
-function merge(left, right) {
-  console.log("hii");
+function lessThan(a, b) {
+  return a > b;
+}
+/*
+  Required: both left and right are already sorted
+  Modified: left
+  Expected: right gets merged into left in sorted order
+*/
+function merge(left, right, comp = lessThan) {
   var lIndex = 0;
-  while(lIndex < left.length) {
-    if(left[lIndex] > right[0]) {
-      left = left.splice(lIndex, 0, right.shift());
-    }
-    ++lIndex;
-    
+  while(right.length) {
+    if(lIndex < left.length) {
+      if(comp(left[lIndex], right[0])) {
+        left.splice(lIndex, 0, right.shift());
+      } 
+      ++lIndex;
+    } else {
+      left.push(right.shift());
+    }    
   }
-  console.log(left);
   return left;
 }
 
-function mergeSort(array) {
-  console.log("hello");
-  if(array) {
+function mergeSort(array, comp = lessThan) {
+  // base case
+  if(array.length <= 1) {
     return array;
   }
+  // recursive steps
+  var leftArr = mergeSort(split(array)[0], comp);
+  var rightArr = mergeSort(split(array)[1], comp);
   
-  return merge(mergeSort(split(array)[0]), mergeSort(split(array)[1]));
+  // merge and return
+  return merge(leftArr, rightArr, comp);
+
 
 }
